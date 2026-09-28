@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downloads</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; overflow-x: hidden; }
+
+  body {
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+    background: #05060a;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(0, 255, 200, 0.10), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(180, 0, 255, 0.12), transparent 45%),
+      linear-gradient(180deg, #05060a 0%, #0a0d18 100%);
+    color: #e8f6ff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 48px 18px 60px;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 255, 200, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 200, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(circle at 50% 40%, #000 30%, transparent 85%);
+    -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 30%, transparent 85%);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 26px;
+    background: linear-gradient(90deg, #00ffc8, #6ee7ff 45%, #b478ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 22px rgba(0, 255, 200, 0.35);
+    position: relative;
+    padding-left: 16px;
+  }
+
+  h1::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 24px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #00ffc8, #b478ff);
+    box-shadow: 0 0 14px #00ffc8;
+  }
+
+  .card {
+    position: relative;
+    background: linear-gradient(160deg, rgba(18, 24, 40, 0.92), rgba(10, 13, 24, 0.92));
+    border: 1px solid rgba(0, 255, 200, 0.18);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0,255,200,0.5), transparent 40%, rgba(180,120,255,0.5));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 0.35s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 255, 200, 0.55);
+    box-shadow:
+      0 0 0 1px rgba(0, 255, 200, 0.25),
+      0 12px 40px rgba(0, 255, 200, 0.12),
+      0 0 60px rgba(180, 120, 255, 0.08);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #0a0e18;
+    border: 1px solid rgba(0, 255, 200, 0.12);
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    filter: saturate(1.1) contrast(1.05);
+  }
+
+  .card:hover .thumb img {
+    transform: scale(1.06);
+    filter: saturate(1.3) contrast(1.1) brightness(1.05);
+  }
+
+  .thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(5,6,10,0.85));
+    pointer-events: none;
+  }
+
+  .card h2 {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+    color: #eafff9;
+    text-shadow: 0 0 12px rgba(0, 255, 200, 0.25);
+  }
+
+  .card p {
+    font-size: 13.5px;
+    color: #8fa3b8;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 24px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #04120f;
+    background: linear-gradient(135deg, #00ffc8, #4de3ff 60%, #b478ff);
+    background-size: 200% 200%;
+    box-shadow:
+      0 0 18px rgba(0, 255, 200, 0.4),
+      inset 0 0 12px rgba(255, 255, 255, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.3s ease, background-position 0.6s ease;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.6), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    background-position: 100% 0;
+    box-shadow:
+      0 0 28px rgba(0, 255, 200, 0.7),
+      0 0 50px rgba(180, 120, 255, 0.35),
+      inset 0 0 14px rgba(255, 255, 255, 0.35);
+  }
+
+  .btn:hover::after { left: 130%; }
+  .btn:active { transform: translateY(0) scale(0.98); }
+
+  /* ===== MODAL KEY ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    width: 100%;
+    max-width: 400px;
+    background: linear-gradient(160deg, #121826, #0a0d18);
+    border: 1px solid rgba(0, 255, 200, 0.4);
+    border-radius: 18px;
+    padding: 26px 24px;
+    box-shadow:
+      0 0 0 1px rgba(0, 255, 200, 0.15),
+      0 20px 60px rgba(0, 0, 0, 0.7),
+      0 0 80px rgba(0, 255, 200, 0.15);
+    position: relative;
+    animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .modal::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 18px 18px 0 0;
+    background: linear-gradient(90deg, #00ffc8, #b478ff);
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.6);
+  }
+
+  .modal h3 {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #00ffc8, #b478ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+  }
+
+  .modal .sub {
+    font-size: 13px;
+    color: #8fa3b8;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .modal input {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 10px;
+    background: #05070d;
+    border: 1px solid rgba(0, 255, 200, 0.3);
+    color: #eafff9;
+    font-size: 15px;
+    font-family: 'SF Mono', Menlo, monospace;
+    letter-spacing: 1px;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .modal input:focus {
+    border-color: #00ffc8;
+    box-shadow: 0 0 0 3px rgba(0, 255, 200, 0.18), 0 0 20px rgba(0, 255, 200, 0.25);
+  }
+
+  .modal input.error {
+    border-color: #ff4d6d;
+    box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.18), 0 0 20px rgba(255, 77, 109, 0.3);
+    animation: shake 0.4s;
+  }
+
+  .modal-msg {
+    font-size: 12.5px;
+    text-align: center;
+    min-height: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .modal-msg.err { color: #ff4d6d; }
+  .modal-msg.ok  { color: #00ffc8; }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .modal-actions button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+  }
+
+  .btn-cancel {
+    background: rgba(255, 255, 255, 0.06);
+    color: #8fa3b8;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #eafff9;
+  }
+
+  .btn-confirm {
+    background: linear-gradient(135deg, #00ffc8, #4de3ff 60%, #b478ff);
+    color: #04120f;
+    box-shadow: 0 0 18px rgba(0, 255, 200, 0.4);
+  }
+
+  .btn-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(0, 255, 200, 0.7);
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.9) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.15s; }
+  .card:nth-child(3) { animation-delay: 0.25s; }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #05060a; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffc8, #b478ff);
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Downloads</h1>
+
+  <!-- Item tải xuống 1 -->
+  <div class="card">
+    <div class="thumb">
+      <img src="https://picsum.photos/seed/game1/720/405" alt="">
+    </div>
+    <h2>Tên file</h2>
+    <p>Mô tả ngắn về nội dung tải xuống.</p>
+    <button class="btn"
+            data-file="https://example.com/file1.zip"
+            data-key="KEY123"
+            onclick="openKeyModal(this)">Tải xuống</button>
+  </div>
+
+  <!-- Item tải xuống 2 -->
+  <div class="card">
+    <div class="thumb">
+      <img src="https://picsum.photos/seed/game2/720/405" alt="">
+    </div>
+    <h2>Tên file 2</h2>
+    <p>Mô tả ngắn về nội dung tải xuống.</p>
+    <button class="btn"
+            data-file="https://example.com/file2.zip"
+            data-key="VIP2026"
+            onclick="openKeyModal(this)">Tải xuống</button>
+  </div>
+
+</div>
+
+<!-- Modal nhập key -->
+<div class="modal-overlay" id="keyModal">
+  <div class="modal">
+    <h3>Nhập Key</h3>
+    <p class="sub">Nhập key để mở khóa tải xuống</p>
+
+    <input type="text" id="keyInput" placeholder="••••••••" autocomplete="off" spellcheck="false">
+    <div class="modal-msg" id="modalMsg"></div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeKeyModal()">Hủy</button>
+      <button class="btn-confirm" onclick="verifyKey()">Xác nhận</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentFile = null;
+  let currentKey = null;
+
+  function openKeyModal(btn) {
+    currentFile = btn.dataset.file;
+    currentKey = btn.dataset.key;
+
+    const modal = document.getElementById('keyModal');
+    const input = document.getElementById('keyInput');
+    const msg = document.getElementById('modalMsg');
+
+    input.value = '';
+    input.classList.remove('error');
+    msg.textContent = '';
+    msg.className = 'modal-msg';
+
+    modal.classList.add('active');
+    setTimeout(() => input.focus(), 100);
+  }
+
+  function closeKeyModal() {
+    document.getElementById('keyModal').classList.remove('active');
+    currentFile = null;
+    currentKey = null;
+  }
+
+  function verifyKey() {
+    const input = document.getElementById('keyInput');
+    const msg = document.getElementById('modalMsg');
+    const value = input.value.trim();
+
+    if (!value) {
+      input.classList.add('error');
+      msg.textContent = 'Vui lòng nhập key';
+      msg.className = 'modal-msg err';
+      return;
+    }
+
+    if (value === currentKey) {
+      msg.textContent = 'Key hợp lệ — Đang tải...';
+      msg.className = 'modal-msg ok';
+
+      // Kích hoạt tải file
+      const a = document.createElement('a');
+      a.href = currentFile;
+      a.download = '';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      setTimeout(closeKeyModal, 900);
+    } else {
+      input.classList.add('error');
+      msg.textContent = 'Key không đúng';
+      msg.className = 'modal-msg err';
+      setTimeout(() => input.classList.remove('error'), 500);
+    }
+  }
+
+  // Enter để xác nhận
+  document.getElementById('keyInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') verifyKey();
+  });
+
+  // Click nền để đóng
+  document.getElementById('keyModal').addEventListener('click', (e) => {
+    if (e.target.id === 'keyModal') closeKeyModal();
+  });
+
+  // ESC để đóng
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeKeyModal();
+  });
+</script>
+</body>
+</html>
